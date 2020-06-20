@@ -1,6 +1,13 @@
 const serializeError = require('serialize-error');
 const path = require('path');
 
+USE_CHAINED = false
+
+const formatChainedResponse = (response) => ({
+  StatusCode: 200,
+  Payload: JSON.stringify(response)
+})
+
 function handler(event, context, callback) {
   // extract the path to the handler (relative to the project root)
   // and the function to call on the handler
@@ -16,10 +23,7 @@ function handler(event, context, callback) {
         Payload: serializeError(error)
       })
     } else {
-      callback(null, {
-        StatusCode: 200,
-        Payload: JSON.stringify(response)
-      })
+      callback(null, (USE_CHAINED ? formatChainedResponse(response) : response))
     }
   });
 }
