@@ -1,6 +1,6 @@
 'use strict';
 
-console.log("USING LOCAL SODL");
+console.warn("USING tookstock/serverless-offline-direct-lambda");
 
 const PACKAGE_NAME = 'serverless-offline-direct-lambda';
 
@@ -20,8 +20,6 @@ class ServerlessPlugin {
     this.hooks = {
       "before:offline:start:init": this.startHandler.bind(this),
     };
-
-    console.log(this)
   }
 
   startHandler() {
